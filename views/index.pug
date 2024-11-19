@@ -9,13 +9,13 @@ html
         div(class="formContainer")
             form(action="/addUser", method="post" class="formActual")
                 label(for="email") Email Address
-                input(type="email" name="email" id="email")
+                input(type="email" name="email" id="email" placeholder="test@test.com")
                 label(for="password") Enter a Password
-                input(type="password" name="password" id="password")
-                label(for="confirmPassword") Confirm the Password
+                input(type="password" name="password" id="password" placeholder="abc123")
+                label(for="confirmPassword") Confirm Password
                 input(type="password" name="confirmPassword" id="confirmPassword")
                 label(for="username") Enter a Username
-                input(type="text" name="username" id="username")
+                input(type="text" name="username" id="username" placeholder="test12")
                 button(type="submit" class="formBsutton") Submit User
         if errors
             ul

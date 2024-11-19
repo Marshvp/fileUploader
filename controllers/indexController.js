@@ -37,15 +37,26 @@ exports.indexAddUser = [
         }),
 
     async (req, res) => {
-        const errors = validationResult(req)
-        if(!errors.isEmpty()){
-            return res.status(400).render('index', {
-                errors: errors.array(),
-                data: req.body
-            })
-        }
-        console.log(JSON.stringify(req.body));
+        try {
+            const errors = validationResult(req)
+            if(!errors.isEmpty()){
+                return res.status(400).render('index', {
+                    errors: errors.array(),
+                    data: req.body
+                })
+            }
 
-    res.redirect('/')
+            const email = req.body.email
+            const password = req.body.password
+            const name = req.body.username
+
+            const NewUser = await db.addNewUser(email, password, name)
+
+            console.log("New User creation finished:", NewUser);
+            res.redirect('/')
+        } catch (error) {
+            console.error(`Error in addUser Controller`, error)
+            throw error
+        }
 }
  ]

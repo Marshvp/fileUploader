@@ -11,12 +11,17 @@
 }
 
 .formActual > label {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
 }
 
 .formActual > label, input {
     border: 2px solid rebeccapurple;
     border-radius: 7px;
+    font-size: 16px;
+}
+
+.formActual > input {
+    padding: 0.5rem;
 }
 
 .formButton {
