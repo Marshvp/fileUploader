@@ -6,4 +6,6 @@ indexRouter.get('/', indexController.indexHomeGet)
 
 indexRouter.post('/addUser', indexController.indexAddUser)
 
+indexRouter.post('/loginUser', indexController.indexLogin)
+
 module.exports = indexRouter

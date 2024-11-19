@@ -60,3 +60,45 @@ exports.indexAddUser = [
         }
 }
  ]
+
+
+exports.indexLogin = [
+    body("email")
+        .isEmail().withMessage("Must be a valid email type")
+        .bail()
+        .custom(async value => {
+            const user = await db.checkEmailsInUse(value)
+            if (!user) {
+                throw  new Error('Email or Password not recognised')
+            }
+        }),
+    body("password")
+        .isLength({ min: 6 }).withMessage('Must be a minimum of 6 characters')
+        .notEmpty().withMessage('Password Required'),
+        
+    async (req, res) => {
+        try {
+            const errors = validationResult(req)
+            if(!errors.isEmpty()){
+                return res.status(400).render('index', {
+                    errors: errors.array(),
+                    data: req.body
+                })
+            }
+
+            const { email, password } = req.body
+            
+            const user = await db.loginUser(email, password)
+            if(user) {
+                console.log("Success");
+            } else {
+                console.log("Failed");
+            }
+            res.render('index')
+        } catch (error) {
+            console.error("Error logging in From controller", error)   
+            throw error
+        }
+    }
+]
+

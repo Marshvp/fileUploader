@@ -2,7 +2,7 @@
 .formContainer {
     padding: 5rem 20rem;
 }
-.formActual {
+.userForms {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -10,17 +10,17 @@
 
 }
 
-.formActual > label {
+.userForms > label {
     margin-top: 1.5rem;
 }
 
-.formActual > label, input {
+.userForms > label, input {
     border: 2px solid rebeccapurple;
     border-radius: 7px;
     font-size: 16px;
 }
 
-.formActual > input {
+.userForms > input {
     padding: 0.5rem;
 }
 

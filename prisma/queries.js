@@ -75,3 +75,27 @@ exports.checkUsernameInUse = async (name) => {
     }
 }
 
+exports.loginUser = async (email, password) => {
+    try {
+        console.log("Queries hit - loginUser");
+        const user = await prisma.user.findUnique({
+            where: { email },
+        });
+
+        if(user) {
+            const hashedPasword = user.password
+            const isMatch = await bcrypt.compare(password, hashedPasword)
+            if(isMatch){
+                console.log("User is found and password Matched", user);
+                return { success: true, userId: user.id}
+            } else {
+                console.error("User Found but incorrect password")
+                return { success: false, message: "Incorrect Password"}
+            }
+        } else {
+            return { success: false, message: "Incorrect Username"}
+        }
+    } catch (error) {
+        console.error("Error logging in user in DB", error)
+    }
+}
