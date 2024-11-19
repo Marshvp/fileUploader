@@ -1,0 +1,38 @@
+
+.formContainer {
+    padding: 5rem 20rem;
+}
+.formActual {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+.formActual > label {
+    margin-top: 2rem;
+}
+
+.formActual > label, input {
+    border: 2px solid rebeccapurple;
+    border-radius: 7px;
+}
+
+.formButton {
+    margin-top: 3rem;
+    min-height: 3rem;
+    border: 2px solid rebeccapurple;
+    border-radius: 10px;
+}
+
+.formButton:hover {
+    background-color: blue;
+    color: white;
+}
+
+body {
+    background-color: rebeccapurple;
+    font-size: larger;
+    min-height: 100%;
+}

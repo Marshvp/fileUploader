@@ -1,0 +1,23 @@
+html
+    head 
+        title FileUploader
+        link(rel="stylesheet", href="/styles.css")
+    body 
+        h1 Hello World
+
+
+        div(class="formContainer")
+            form(action="/addUser", method="post" class="formActual")
+                label(for="email") Email Address
+                input(type="email" name="email" id="email")
+                label(for="password") Enter a Password
+                input(type="password" name="password" id="password")
+                label(for="confirmPassword") Confirm the Password
+                input(type="password" name="confirmPassword" id="confirmPassword")
+                label(for="username") Enter a Username
+                input(type="text" name="username" id="username")
+                button(type="submit" class="formBsutton") Submit User
+        if errors
+            ul
+                each error in errors
+                    li #{ error.msg }
