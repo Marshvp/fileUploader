@@ -7,7 +7,7 @@
 body {
     background-color: hsl(53, 24%, 93%);
     font-size: larger;
-    min-height: 100%;
+    min-height: 100vh;
 }
 
 .mainNavContainer {
@@ -17,6 +17,12 @@ body {
     background-color: #E5E1DA;
     padding: 0;
     margin: 0;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    height: 6rem;
+    width: 100%;
+
 }
 
 .mainNavContainer > a, span {
@@ -26,8 +32,12 @@ body {
     font-weight: bolder;
     padding: 2rem 0
 }
+
+.mainDivContainer {
+    margin-top: 8rem;
+}
 .formContainer {
-    padding: 5rem 20rem;
+    margin: 5rem 10%;
 }
 .userForms {
     display: flex;
@@ -43,7 +53,7 @@ body {
 
 .userForms > label, input {
     border: 2px solid #E5E1DA;
-    font-size: 16px;
+    font-size: 24px;
     color: black
 }
 
