@@ -1,0 +1,12 @@
+fix the serialize user into session
+
+
+Error during login Error: Failed to serialize user into session
+    at pass (/home/marshall/odin-express/fileUploader/node_modules/passport/lib/authenticator.js:296:19)
+    at serialized (/home/marshall/odin-express/fileUploader/node_modules/passport/lib/authenticator.js:301:7)
+    at /home/marshall/odin-express/fileUploader/passportConfig.js:7:5
+    at pass (/home/marshall/odin-express/fileUploader/node_modules/passport/lib/authenticator.js:309:9)
+    at Authenticator.serializeUser (/home/marshall/odin-express/fileUploader/node_modules/passport/lib/authenticator.js:314:5)
+    at /home/marshall/odin-express/fileUploader/node_modules/passport/lib/sessionmanager.js:33:10
+    at Immediate._onImmediate (/home/marshall/odin-express/fileUploader/node_modules/express-session/session/store.js:54:5)
+    at process.processImmediate (node:internal/timers:483:21)

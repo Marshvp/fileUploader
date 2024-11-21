@@ -1,8 +1,16 @@
 const { body, validationResult} = require('express-validator')
 const db = require('../prisma/queries')
+const passport = require("../passportConfig")
 
 exports.indexHomeGet = async (req, res) => {
-    res.render('index')
+    let user
+    
+    if (req.user){
+        console.log("Req.user:", req.user);
+        
+        user = req.user
+    }
+    res.render('index', { user: user})
 }
 
 
@@ -76,29 +84,55 @@ exports.indexLogin = [
         .isLength({ min: 6 }).withMessage('Must be a minimum of 6 characters')
         .notEmpty().withMessage('Password Required'),
         
-    async (req, res) => {
-        try {
-            const errors = validationResult(req)
-            if(!errors.isEmpty()){
-                return res.status(400).render('index', {
-                    errors: errors.array(),
-                    data: req.body
+    async (req, res, next) => {
+
+        const errors = validationResult(req)
+        if(!errors.isEmpty()){
+            return res.status(400).render('index', {
+                errors: errors.array(),
+                data: req.body
+            })
+        }
+
+        passport.authenticate('local', (err, user, info) => {
+            if(err) {
+                console.error("Error during authentication");
+                return next(err)
+            }
+            if(!user) {
+                return res.status(401).render("index", {
+                    errors: [{ msg: "From passport.authenticate: Email or password not recognised"}],
+                    data: req.body,
                 })
             }
 
-            const { email, password } = req.body
-            
-            const user = await db.loginUser(email, password)
-            if(user) {
-                console.log("Success");
-            } else {
-                console.log("Failed");
-            }
-            res.render('index')
-        } catch (error) {
-            console.error("Error logging in From controller", error)   
-            throw error
-        }
+            req.login(user, (loginErr) => {
+                if(loginErr){
+                    console.error("Error during login", loginErr);
+                    return next(err)
+                }
+                return res.redirect('/');
+            })
+        })(req, res, next)
     }
 ]
+            // const { email, password } = req.body
+            
+            // const user = await db.loginUser(email, password)
+            // if(user) {
+            //     console.log("Success");
+            // } else {
+            //     console.log("Failed");
+            // }
+            // res.render('index')
 
+exports.userLogoutGet = (req, res) => {
+    req.logout((err) => {
+        if(err) {
+            return res.status(500).send("Error Logging out")
+        }
+        req.session.destroy();
+        res.clearCookie("connect.sid")
+        res.redirect("/")
+    })
+}
