@@ -3,10 +3,8 @@ html
         title FileUploader
         link(rel="stylesheet", href="/styles.css")
     body 
+        include ./partials/navbar.pug
         h1 Hello World
-        if user
-            h2 Hello #{user.name}
-            a(href="/logout") LogOut
         h3 SignUp
         div(class="formContainer")
             form(action="/addUser", method="post" class="userForms")

@@ -1,0 +1,14 @@
+
+nav 
+    div(class="mainNavContainer")
+        a(href="/") Home
+
+        if user
+            span Welcome #{user.name}
+            a(href="/logout") Log Out
+        else 
+            a(href="/login") Log In
+            a(href="/signUp") Sign Up
+        
+
+block content
