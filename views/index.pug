@@ -1,32 +1,8 @@
-html
-    head 
-        title FileUploader
-        link(rel="stylesheet", href="/styles.css")
-    body 
-        include ./partials/navbar.pug
-        h1 Hello World
-        h3 SignUp
-        div(class="formContainer")
-            form(action="/addUser", method="post" class="userForms")
-                label(for="email") Email Address
-                input(type="email" name="email" id="email" placeholder="test@test.com")
-                label(for="password") Enter a Password
-                input(type="password" name="password" id="password" placeholder="abc123")
-                label(for="confirmPassword") Confirm Password
-                input(type="password" name="confirmPassword" id="confirmPassword")
-                label(for="username") Enter a Username
-                input(type="text" name="username" id="username" placeholder="test12")
-                button(type="submit" class="formBsutton") Submit User
-        if errors
-            ul
-                each error in errors
-                    li #{ error.msg }
+include ./partials/navbar.pug
+h1 Hello World
+
+if user
+    h2 #{user.name}
+
+
         
-        h3 Login
-        div(class="formContainer")
-            form(action="/loginUser", method="post" class="userForms")
-                label(form="email") Email Address
-                input(type="email" name="email" id="email" placeholder="test@test.com")
-                label(for="password") Enter a Password
-                input(type="password" name="password" id="password" placeholder="abc123")
-                button(type="submit" class="formBsutton") Submit User

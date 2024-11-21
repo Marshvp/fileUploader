@@ -1,0 +1,17 @@
+include ./partials/navbar.pug
+h3 SignUp
+    div(class="formContainer")
+        form(action="/users/addUser", method="post" class="userForms")
+            label(for="email") Email Address
+            input(type="email" name="email" id="email" placeholder="test@test.com")
+            label(for="password") Enter a Password
+            input(type="password" name="password" id="password" placeholder="abc123")
+            label(for="confirmPassword") Confirm Password
+            input(type="password" name="confirmPassword" id="confirmPassword")
+            label(for="username") Enter a Username
+            input(type="text" name="username" id="username" placeholder="test12")
+            button(type="submit" class="formBsutton") Submit User
+if errors
+    ul
+        each error in errors
+            li #{ error.msg }

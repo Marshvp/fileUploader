@@ -2,7 +2,8 @@ const express = require('express');
 const session = require("express-session")
 const indexRouter = require('./routes/indexRoutes')
 const path = require('node:path')
-const passport = require("./passportConfig")
+const passport = require("./passportConfig");
+const userRouter = require('./routes/userRoutes');
 const app = express()
 
 app.use(express.urlencoded({ extended: true }))
@@ -23,6 +24,7 @@ app.use(passport.session())
 app.use(express.static(path.join(__dirname, "public")))
 app.set("view engine", "pug")
 app.use('/', indexRouter)
+app.use('/users', userRouter)
 
 app.listen(9090, () => {
     console.log('Hello World');

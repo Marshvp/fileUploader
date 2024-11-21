@@ -1,14 +1,18 @@
+html
+    head 
+        title FileUploader
+        link(rel="stylesheet", href="/styles.css")
+    body 
+        nav 
+            div(class="mainNavContainer")
+                a(href="/") Home
 
-nav 
-    div(class="mainNavContainer")
-        a(href="/") Home
+                if user
+                    span Welcome #{user.name}
+                    a(href="/users/logout") Log Out
+                else 
+                    a(href="/users") Log In
+                    a(href="/users/signUp") Sign Up
+                
 
-        if user
-            span Welcome #{user.name}
-            a(href="/logout") Log Out
-        else 
-            a(href="/login") Log In
-            a(href="/signUp") Sign Up
-        
-
-block content
+        block content

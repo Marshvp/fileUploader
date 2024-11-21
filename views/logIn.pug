@@ -1,0 +1,14 @@
+include ./partials/navbar.pug
+
+h3 Login
+div(class="formContainer")
+    form(action="/users/loginUser", method="post" class="userForms")
+        label(form="email") Email Address
+        input(type="email" name="email" id="email" placeholder="test@test.com")
+        label(for="password") Enter a Password
+        input(type="password" name="password" id="password" placeholder="abc123")
+        button(type="submit" class="formBsutton") Submit User
+if errors
+    ul
+        each error in errors
+            li #{ error.msg }
