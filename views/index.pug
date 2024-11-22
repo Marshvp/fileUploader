@@ -1,70 +1,20 @@
 include ./partials/navbar.pug
-    h1 Hello World
+h1 Hello World
 
-    if user
-        h2 #{user.name}
+if user
+    h2 #{user.name}
 
-
-
-    ul 
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
-        li test
+    br
+    div(class="fileTree")
+        ul
+            li
+                span(class="rootFolder") Folder: "#{rootFolder.name}" - id: #{rootFolder.id}
+                ul
+                    if subFolder
+                        each folder in subFolder
+                            li
+                                span Folder: "#{folder.name}" - id: #{folder.id}
+                    if files
+                        each file in files
+                            li
+                                span(class="files") File: "#{file.fileName}" - id: #{file.id}

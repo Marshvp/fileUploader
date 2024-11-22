@@ -110,3 +110,44 @@ exports.getUserById = async (id) => {
         console.error("Error on DB finding User By Id", error)
     }
 }
+
+exports.indexFoldersGet = async (userId) => {
+    try {
+        const rootFolder = await prisma.folder.findFirst({
+            where: {
+                userId: userId,
+                name: "Main",
+                parentId: null,
+            },
+        });
+        if(!rootFolder) {
+            throw new Error("Root Folder not found")
+        }
+        
+
+        const subFolders = await prisma.folder.findMany({
+            where: {
+                userId: userId,
+                parentId: rootFolder.id
+            },
+        })
+        const filesInRootFolder = await prisma.file.findMany({
+            //
+            where: {
+                userId: userId,
+                folderId: rootFolder.id,
+            }, 
+        })
+
+        return {
+            rootFolder: rootFolder,
+            subFolders: subFolders,
+            filesInRootFolder: filesInRootFolder,
+        }
+
+        // return everything in an array??
+    } catch (error) {
+        console.error("Error getting all index folders in db", error)
+        throw error
+    }
+}

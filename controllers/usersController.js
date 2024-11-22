@@ -87,7 +87,7 @@ exports.usersLogin = [
                 return next(err)
             }
             if(!user) {
-                return res.status(401).render("index", {
+                return res.status(401).render("/login", {
                     errors: [{ msg: "From passport.authenticate: Email or password not recognised"}],
                     data: req.body,
                 })

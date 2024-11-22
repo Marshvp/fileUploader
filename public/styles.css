@@ -34,7 +34,7 @@ body {
 }
 
 .mainDivContainer {
-    margin-top: 8rem;
+    margin: 8rem 2rem 0 2rem
 }
 .formContainer {
     margin: 5rem 10%;
@@ -44,7 +44,6 @@ body {
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
-
 }
 
 .userForms > label {
@@ -76,3 +75,18 @@ body {
 
 
 
+.fileTree {
+    padding: 3rem   ;
+}
+
+.rootFolder {
+    color: red;
+}
+
+.subFolder {
+    color: green;
+}
+
+.files {
+    color: blue;
+}
