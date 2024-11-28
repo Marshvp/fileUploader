@@ -2,6 +2,11 @@ include ./partials/navbar.pug
 
 
 h1 Upload a File
+if user 
+    span Hello #{user.name}
+div(class="formContainer")
+    form(action="/addFile", method="post" enctype="multipart/form-data" class="userForms" )
+        label(for="fileInput")
+        input(type="file" name="fileInput" id="fileInput")
 
-form(action="#", method="post")
-    label(for="File name")
+        button(type="submit") Add File
