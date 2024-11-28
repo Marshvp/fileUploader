@@ -15,7 +15,10 @@ exports.indexHomeGet = async (req, res) => {
             console.log("RootFolder", rootFolder);
             res.render('index', { user: user, rootFolder: rootFolder, subFolders: subFolders, files: filesInRootFolder})
         }
-        res.render('index', { user: user})
+        else {
+            res.render('index', { user: user})
+            
+        }
     } catch (error) {
         console.error("Error loading indexHomeGet:", error)   
     }

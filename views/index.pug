@@ -8,13 +8,14 @@ if user
     div(class="fileTree")
         ul
             li
-                span(class="rootFolder") Folder: "#{rootFolder.name}" - id: #{rootFolder.id}
-                ul
-                    if subFolder
-                        each folder in subFolder
-                            li
-                                span Folder: "#{folder.name}" - id: #{folder.id}
-                    if files
-                        each file in files
-                            li
-                                span(class="files") File: "#{file.fileName}" - id: #{file.id}
+                if rootFolder
+                    span(class="rootFolder") Folder: &quot;#{rootFolder.name}&quot; - id: #{rootFolder.id}
+                    ul
+                        if subFolder
+                            each folder in subFolder
+                                li
+                                    span Folder: "#{folder.name}" - id: #{folder.id}
+                        if files
+                            each file in files
+                                li
+                                    span(class="files") File: "#{file.fileName}" - id: #{file.id}
