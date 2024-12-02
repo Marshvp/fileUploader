@@ -86,6 +86,9 @@ body {
 .subFolder {
     color: green;
 }
+.subFolderFiles {
+    color: rgb(111, 197, 111);
+}
 
 .files {
     color: blue;

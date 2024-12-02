@@ -5,8 +5,13 @@ h1 Upload a File
 if user 
     span Hello #{user.name}
 div(class="formContainer")
-    form(action="/addFile", method="post" enctype="multipart/form-data" class="userForms" )
-        label(for="fileInput")
+    form(action="/addFile", method="post", enctype="multipart/form-data" class="userForms")
+        label(for="folderName") Folder Name (Optional):
+        input(type="text" name="folderName" id="folderName" placeholder="Enter folder name")
+        br
+
+        label(for="fileInput") Upload File:
         input(type="file" name="fileInput" id="fileInput")
+        br
 
         button(type="submit") Add File

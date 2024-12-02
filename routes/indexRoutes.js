@@ -8,6 +8,7 @@ indexRouter.get('/', indexController.indexHomeGet)
 
 indexRouter.get('/addFile',ensureAuthenticated, indexController.indexAddFileGet)
 
-indexRouter.post('/addFile',ensureAuthenticated ,upload.single("fileInput"), indexController.indexAddFilePost)
+indexRouter.post('/addFile',ensureAuthenticated,upload.single("fileInput"), indexController.indexAddFilePost)
+
 
 module.exports = indexRouter

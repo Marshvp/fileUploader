@@ -14,11 +14,15 @@ if user
                 if rootFolder
                     span(class="rootFolder") Folder: &quot;#{rootFolder.name}&quot; - id: #{rootFolder.id}
                     ul
-                        if subFolder
-                            each folder in subFolder
+                        if subFolders
+                            each folder in subFolders
                                 li
-                                    span Folder: "#{folder.name}" - id: #{folder.id}
+                                    span(class="subFolder") Folder: &quot;#{folder.name}&quot; - id: #{folder.id}
+                                    if folder.files
+                                        each file in folder.files
+                                            li
+                                                span(class="subFolderFiles") File &quot;#{file.fileName}&quot; - id: #{file.id} 
                         if files
                             each file in files
                                 li
-                                    span(class="files") File: "#{file.fileName}" - id: #{file.id}
+                                    span(class="files") File: &quot;#{file.fileName}&quot; - id: #{file.id}

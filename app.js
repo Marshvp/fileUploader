@@ -8,7 +8,8 @@ const passport = require("./passportConfig");
 const userRouter = require('./routes/userRoutes');
 const app = express()
 
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 const prisma = new PrismaClient()
 

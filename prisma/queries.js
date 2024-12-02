@@ -131,23 +131,122 @@ exports.indexFoldersGet = async (userId) => {
                 parentId: rootFolder.id
             },
         })
+        console.log("indexFoldersGet log: subFolder Check", subFolders);
+        
         const filesInRootFolder = await prisma.file.findMany({
             //
             where: {
                 userId: userId,
                 folderId: rootFolder.id,
             }, 
-        })
+        });
+        
+        const subFoldersWithFiles = await Promise.all(
+            subFolders.map( async (folder) => {
+                const filesInSubFolder = await prisma.file.findMany({
+                    where: {
+                        userId: userId,
+                        folderId: folder.id
+                    }
+                })
+                return {
+                    ...folder,
+                    files: filesInSubFolder,
+                }
+            })
+            
+        )
 
         return {
             rootFolder: rootFolder,
-            subFolders: subFolders,
             filesInRootFolder: filesInRootFolder,
+            subFolders: subFoldersWithFiles,
         }
 
-        // return everything in an array??
     } catch (error) {
         console.error("Error getting all index folders in db", error)
+        throw error
+    }
+}
+
+
+exports.addFile = async (folderName, userId, file) => {
+
+    console.log("addFile log: folderName, userId, file", folderName, userId, file);
+    
+    try {
+        let folder = await prisma.folder.findFirst({
+            where: {
+                name: folderName ,
+                userId: userId
+            },
+        });
+
+        if(!folder) {
+            folder = await prisma.folder.findFirst({
+                where: {
+                    name: "main",
+                    userId: userId,
+                },
+            });
+        };
+
+        console.log("Database folder check", folder);
+        
+        const uploadedFile = await prisma.file.create({
+            data: {
+                fileName: file.originalname, // Original file name
+                filePath: file.path, // File path in the filesystem
+                mimetype: file.mimetype, // MIME type (e.g., image/jpeg)
+                size: file.size, // File size in bytes
+                userId: userId, // Link the file to the user
+                folderId: folder ? folder.id : null, // Link the file to the folder
+            }
+        }) 
+        return 
+    } catch (error) {
+        console.error("Error saving in the database", error)
+        throw error
+    }
+}
+
+exports.createFolder = async (folderName, userId) => {
+    try {
+        let findParent = await prisma.folder.findFirst({
+            where: {
+                name: "Main",
+                userId: userId
+            }
+        });
+        let folder = await prisma.folder.create({
+            data: {
+                name: folderName,
+                userId: userId,
+                isDefault: false,
+                parentId: findParent.id     
+            },
+        });
+
+        return folder
+    } catch (error) {
+        console.error(error);
+        throw error
+    }
+}
+
+exports.findFolderPost = async (folderName, userId) => {
+    
+    try {
+        let folder = await prisma.folder.findFirst({
+            where: {
+                name: folderName,
+                userId: userId,
+            },
+        });
+        
+        return folder
+    } catch (error) {
+        console.error(error);
         throw error
     }
 }

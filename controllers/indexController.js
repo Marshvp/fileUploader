@@ -1,19 +1,21 @@
 const { body, validationResult} = require('express-validator')
 const db = require('../prisma/queries')
 const passport = require("../passportConfig")
-const { upload } = require("../middleware/multer")
+const path = require("node:path")
 
 exports.indexHomeGet = async (req, res) => {
     let user
     try {
         if (req.user){
-            console.log("Req.user:", req.user);
-            
             user = req.user
-            console.log("userid", user.id);
-            
             const { rootFolder, subFolders, filesInRootFolder } = await db.indexFoldersGet(user.id)
             console.log("RootFolder", rootFolder);
+            console.log("subFolders", subFolders);
+            if(subFolders) {
+                console.log(true);
+                
+            }
+            
             res.render('index', { user: user, rootFolder: rootFolder, subFolders: subFolders, files: filesInRootFolder})
         }
         else {
@@ -29,25 +31,23 @@ exports.indexAddFileGet = async (req, res) => {
     res.render('addFile')
 }
 
-exports.indexAddFilePost = async (req, res) => {
+
+exports.indexAddFilePost = async (req, res, next) => {
     try {
         if(!req.file) {
-            return res.status(400).render('addFile', {
-                errors: [{ message: "File is required"}],
-                data: req.body
-            })
-        }
-        console.log("Uploaded File:", req.file);
-        
-        return res.render('index')
-    } catch (error) {
-        console.error("Error processing the file");
-        if (error instanceof multer.MulterError || error.message.includes("Invalid file type")) {
             return res.status(400).render("addFile", {
-                errors: [{ message: error.message }],
-                data: req.body,
+                errors: [{ message: "File Upload failed, please try again"}],
             });
         }
+
+        console.log("indexAddFilePost log: req.body.folderName", req.body.folderName);
+        
+        await db.addFile(req.body.folderName, req.user.id, req.file)
+        console.log("File Saved");
+        res.redirect('/')
+        
+    } catch (error) {
+        console.error("Error adding in controller")
         res.status(500).send("Server Error")
     }
 }
